@@ -38,7 +38,7 @@ pipeline {
     
     stage('Push Artifact to S3') {
       steps {
-        sh 'aws s3 cp webapp/target/webapp.war s3://bucket-name'
+        sh 'aws s3 cp webapp/target/webapp.war s3://bucket-764'
       }
     }
     
@@ -49,7 +49,7 @@ pipeline {
     stage('Deploy to tomcat') {
       steps {
          sh 'sudo scp -i $tomcat_key -o "StrictHostKeyChecking=no" webapp/target/webapp.war ubuntu@tom-ip:/opt/tomcat/webapps'
-         sh 'sudo ansible-playbook playbook-name'
+         sh 'sudo ansible-playbook deploy.yml'
       }
     }
     
@@ -92,7 +92,7 @@ pipeline {
    
     stage('deploying the docker image into EC2 instance and run the container') {
     steps {
-        sh 'ansible-playbook playbook-name --extra-vars="buildNumber=$BUILD_NUMBER"'
+        sh 'ansible-playbook deploy.yml --extra-vars="buildNumber=$BUILD_NUMBER"'
         }   
       }  
   }
