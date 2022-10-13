@@ -21,6 +21,9 @@
   CREATE DATABASE sonarqube OWNER sonar;
   GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar;
   
+ \q
+ exit
+  
 
   systemctl restart postgresql 
   systemctl status postgresql
